@@ -1,8 +1,8 @@
 {
   "$schema": "http://apicast.io/policy-v1/schema#manifest#",
-  "name": "APIcast Example Policy",
-  "summary": "This is just an example.",
-  "description": "This policy is just an example how to write your custom policy.",
+  "name": "APIcast Generate Request Policy",
+  "summary": "This is use for Gen UUID and set to Header.",
+  "description": "This policy will generate UUID and se to HTTP Header.",
   "version": "0.1",
   "configuration": {
     "type": "object",
