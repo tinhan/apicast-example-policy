@@ -1,6 +1,6 @@
 local setmetatable = setmetatable
 
-local _M = require('apicast.policy').new('Example', '0.1')
+local _M = require('apicast.policy').new('Gen UUID', '0.1')
 local mt = { __index = _M }
 
 function _M.new()
@@ -17,6 +17,9 @@ end
 
 function _M:rewrite()
   -- change the request before it reaches upstream
+  local config = configuration or {}
+  local set_header = config.set_header or {}
+  ngx.req.set_header('x-request-id', '1234567890')
 end
 
 function _M:access()
