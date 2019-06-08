@@ -17,9 +17,4 @@ function _M.new()
   return setmetatable({}, mt)
 end
 
-function _M:rewrite()
-  -- change the request before it reaches upstream
-end
-
-
 return _M
