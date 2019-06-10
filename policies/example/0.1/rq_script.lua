@@ -12,7 +12,7 @@ function _M.new()
         local v = (c == 'x') and random(0, 0xf) or random(8, 0xb)
         return string.format('%x', v) end)
   
-  ngx.req.set_header('x-request-uid', rq_uuid)
+  ngx.req.set_header('x-request-id', rq_uuid)
   ngx.log(0, 'setting header: x-request-id : ', rq_uuid)
   ngx.log(0, ngx.req.get_headers())
   ngx.log(0, 'req_body: ', ngx.var.request_body)
