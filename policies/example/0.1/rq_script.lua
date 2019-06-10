@@ -17,7 +17,7 @@ function _M:rewrite()
         return string.format('%x', v) end)
   
   ngx.req.set_header('x-request-id', rq_uuid)
-  ngx.log(0, 'x-request-id : ', rq_uuid, ', req_body : ', ngx.var.request_body)
+  ngx.log(0, 'In coming request { x-request-id : ', rq_uuid, ', { Body : ', ngx.var.request_body , ' } }')
   
 end
 
@@ -29,7 +29,7 @@ function _M:body_filter()
       resp = ngx.ctx.buffered
     end
 
-    ngx.log(0, 'x-request-id : ', rq_uid, ', resp_body : ', resp)
+    ngx.log(0, 'Out going response { x-request-id : ', rq_uid, ', { Body : ', resp , ' } }')
   
 end
 
