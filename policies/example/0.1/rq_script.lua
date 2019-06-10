@@ -12,13 +12,17 @@ function _M.new()
   local rq_uuid = string.gsub(template, '[xy]', function (c)
         local v = (c == 'x') and random(0, 0xf) or random(8, 0xb)
         return string.format('%x', v) end)
-  
-  ngx.log(ngx.NOTICE, 'setting header: x-request-id : ', rq_uuid)
-  ngx.log(0, ngx.req.raw_header())
-  -- ngx.log(0, resp)
-  --ngx.log(ngx.NOTICE, 'req_body: ', ngx.var.request_body, ' rq_uuid : ', rq_uuid)
   ngx.req.set_header('x-request-uid', rq_uuid)
+  ngx.log(0, 'setting header: x-request-id : ', rq_uuid)
+  ngx.log(0, ngx.req.raw_header())
+  ngx.log(0, 'req_body: ', ngx.var.request_body, ' rq_uuid : ', rq_uuid)
   return setmetatable({}, mt)
+end
+
+function _M:post_action()
+  -- do something after the response was sent to the client
+  ngx.log(0, ngx.resp.get_headers())
+  ngx.log(0, 'req_body: ', ngx.var.response_body, ' rq_uuid : ', rq_uuid)
 end
 
 return _M
