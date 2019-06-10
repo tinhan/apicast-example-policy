@@ -15,7 +15,7 @@ function _M.new()
   ngx.req.set_header('x-request-id', rq_uuid)
   ngx.log(0, 'setting header: x-request-id : ', rq_uuid)
   ngx.log(0, req.raw_header())
-  ngx.log(0, 'req_body: ', ngx.var.request_body)
+  ngx.log(0, 'req_body: ', ngx.var.request_body, 'x-request-id : ', rq_uuid)
   return setmetatable({}, mt)
 end
 
