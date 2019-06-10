@@ -15,14 +15,22 @@ function _M.new()
   ngx.req.set_header('x-request-uid', rq_uuid)
   ngx.log(0, 'setting header: x-request-id : ', rq_uuid)
   ngx.log(0, ngx.req.get_headers())
-  --ngx.log(0, 'req_body: ', ngx.var.request_body, ' rq_uuid : ', rq_uuid)
+  ngx.log(0, 'req_body: ', ngx.var.request_body)
   return setmetatable({}, mt)
 end
 
-function _M:post_action()
-  -- do something after the response was sent to the client
-  ngx.log(0, ngx.resp.get_headers())
-  -- ngx.log(0, 'req_body: ', ngx.var.response_body)
+function _M:body_filter()
+    local resp = ""
+    ngx.ctx.buffered = (ngx.ctx.buffered or "") .. string.sub(ngx.arg[1], 1, 1000)
+    if ngx.arg[2] then
+      resp = ngx.ctx.buffered
+    end
+
+    ngx.log(0, ngx.req.raw_header())
+    ngx.log(0, resp)
+  
 end
+
+
 
 return _M
