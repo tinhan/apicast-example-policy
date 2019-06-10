@@ -12,22 +12,23 @@ function _M.new()
         local v = (c == 'x') and random(0, 0xf) or random(8, 0xb)
         return string.format('%x', v) end)
   
-  ngx.req.set_header('x-request-id', rq_uuid)
   ngx.log(0, 'setting header: x-request-id : ', rq_uuid)
-  ngx.log(0, ngx.req.raw_header())
-  ngx.log(0, 'req_body: ', ngx.var.request_body, 'x-request-id : ', rq_uuid)
+  ngx.req.set_header('x-request-id', rq_uuid)
+--  ngx.log(0, ngx.req.raw_header())
+  ngx.log(0, 'x-request-id : ', rq_uuid ', : req_body : ', ngx.var.request_body)
   return setmetatable({}, mt)
 end
 
 function _M:body_filter()
     local resp = ""
+    local rq_uid = ngx.req.get_headers()["x-request-id"]
     ngx.ctx.buffered = (ngx.ctx.buffered or "") .. string.sub(ngx.arg[1], 1, 1000)
     if ngx.arg[2] then
       resp = ngx.ctx.buffered
     end
 
-    ngx.log(0, ngx.req.raw_header())
-    ngx.log(0, resp)
+--    ngx.log(0, ngx.req.raw_header())
+    ngx.log(0, 'x-request-id : ', rq_uid, ', resp_body : ', resp)
   
 end
 
