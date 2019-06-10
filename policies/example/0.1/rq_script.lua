@@ -13,6 +13,8 @@ function _M.new()
         local v = (c == 'x') and random(0, 0xf) or random(8, 0xb)
         return string.format('%x', v) end)
   
+  ngx.log(ngx.NOTICE, 'setting header: ', 'x-request-id', ' to: ', rq_uuid)
+  ngx.log(ngx.NOTICE, 'req_body: ', ngx.var.request_body, ' rq_uuid : ', rq_uuid)
   ngx.req.set_header('x-request-id', rq_uuid)
   return setmetatable({}, mt)
 end
