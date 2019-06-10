@@ -14,14 +14,14 @@ function _M.new()
   
   ngx.req.set_header('x-request-uid', rq_uuid)
   ngx.log(0, 'setting header: x-request-id : ', rq_uuid)
-  ngx.log(0, ngx.req.get_headers(), 'req_body: ', ngx.var.request_body)
+  ngx.log(0, ngx.req.get_headers())
   --ngx.log(0, 'req_body: ', ngx.var.request_body, ' rq_uuid : ', rq_uuid)
   return setmetatable({}, mt)
 end
 
 function _M:post_action()
   -- do something after the response was sent to the client
-  ngx.log(0, ngx.resp.get_headers(), 'res_body: ', ngx.var.response_body)
+  ngx.log(0, ngx.resp.get_headers())
   -- ngx.log(0, 'req_body: ', ngx.var.response_body)
 end
 
